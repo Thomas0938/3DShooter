@@ -18,6 +18,16 @@ shape = SubResource("CapsuleShape3D_2v7c3")
 [node name="Node3D" type="Node3D" parent="."]
 
 [node name="SpringArm3D" type="SpringArm3D" parent="Node3D"]
-spring_length = 3.0
+spring_length = -1.0
 
 [node name="Camera3D" type="Camera3D" parent="Node3D/SpringArm3D"]
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_dash_cooldown"]
