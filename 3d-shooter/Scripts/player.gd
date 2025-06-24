@@ -6,7 +6,7 @@ var jump_velocity: int = 6.0
 var double_jump: float = true
 var double_jump_velocity: int = 6.0
 @onready var pivot: Node3D = $Node3D
-@export var sens: int = 0.1
+@export var sens: int = 0.5
 var jumping: float = false
 var dash_direction
 var is_dashing: float = false
@@ -44,3 +44,19 @@ func _physics_process(delta: float) -> void:
 	
 	if is_on_floor() and has_dashed:
 		has_dashed = false
+
+	if Input.is_action_just_pressed("dash"):
+		is_dashing = true
+		dash_direction = transform.basis.z
+		has_dashed = true
+
+	move_and_slide()
+
+func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func _input(event) -> void:
+	if event is InputEventMouseMotion:
+		rotate_y(deg_to_rad(-event.relative.x * sens))
+		pivot.rotate_x(deg_to_rad(-event.relative.y * sens))
+		pivot.rotation.x = clamp(pivot.rotation.x, deg_to_rad(-50), deg_to_rad(40))
