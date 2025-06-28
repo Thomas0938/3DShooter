@@ -10,13 +10,20 @@ var double_jump_velocity: int = 6
 var jumping: bool = false
 var dash_direction
 var is_dashing: bool = false
-var dash_velocity: int = 10
+var dash_velocity: int = 20
 var dash_duration: float = 0.1
 var dash_cooldown: int = 30
 var Dash_cooldown: bool = true
 var time: int = 0
 var has_dashed: bool = false
 var gravity: int = ProjectSettings.get_setting("physics/3d/default_gravity")
+var is_sliding: bool = true
+var slide_velocity: int = 8
+var slide_duration: float = 0.1
+var slide_direction
+var has_slide: bool = false
+var velocity_slide
+
 
 func _physics_process(delta: float) -> void:
 	# The gravity
@@ -44,19 +51,30 @@ func _physics_process(delta: float) -> void:
 		velocity += dash_direction * -dash_velocity
 		velocity.y = 0
 	
+	if is_sliding:
+		time += delta
+		velocity += slide_direction * -slide_velocity
+		velocity.y = 0  
+	
+	if is_on_floor() and has_slide:
+		has_slide = false
+	
 	if is_on_floor() and has_dashed:
 		has_dashed = false
-
-	if Input.is_action_just_pressed("dash"):
+#This gives the dash a cooldown and allows the player to dash
+	if Input.is_action_just_pressed("dash") and Dash_cooldown:
 		is_dashing = true
+		Dash_cooldown = false
 		$Timer.start(dash_duration)
+		$Timer2.start()
 		dash_direction = transform.basis.z
 		has_dashed = true
-
-#This gives the dash a cooldown
-	if Input.is_action_just_pressed("dash") and Dash_cooldown:
-		Dash_cooldown = false
-		$Timer2.start()
+#This allows the player to slide in the game
+	if Input.is_action_just_pressed("slide"):
+		is_sliding = true
+		$Timer3.start(slide_duration)
+		slide_direction = transform.basis.x
+		has_slide = true
 
 	move_and_slide()
 
@@ -78,7 +96,12 @@ func _on_timer_timeout() -> void:
 #To allow you to dash again after cooldown
 func _dash_cooldown() -> void:
 	Dash_cooldown = true
+	is_dashing = false
 	#$Timer2.start(dash_cooldown)
 	#Dash_cooldown = false
 	#has_dashed = true
 	#is_dashing = false
+
+func _on_timer_3_timeout() -> void:
+	is_sliding = false
+	velocity.y = 0
