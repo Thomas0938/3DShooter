@@ -53,8 +53,8 @@ func _physics_process(delta: float) -> void:
 	
 	if is_sliding:
 		time += delta
-		velocity += slide_direction * -slide_velocity
-		velocity.y = 0  
+		#velocity += slide_direction * -slide_velocity
+		#velocity.y = 0  
 	
 	if is_on_floor() and has_slide:
 		has_slide = false

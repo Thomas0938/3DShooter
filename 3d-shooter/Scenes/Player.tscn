@@ -21,12 +21,13 @@ shape = SubResource("CapsuleShape3D_2v7c3")
 spring_length = -1.0
 
 [node name="Camera3D" type="Camera3D" parent="Node3D/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.419911, 0.246354)
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
 [node name="Timer2" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 2.0
 one_shot = true
 
 [node name="Timer3" type="Timer" parent="."]
