@@ -1,8 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddommv33d6u8o"]
+[gd_scene load_steps=8 format=3 uid="uid://ddommv33d6u8o"]
 
 [ext_resource type="PackedScene" uid="uid://c80jndhya5mat" path="res://Scenes/Player.tscn" id="1_4uau3"]
+[ext_resource type="PackedScene" uid="uid://dx5tt4x5d1vbf" path="res://Scenes/blocksforclimbing.tscn" id="2_ecs62"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hweis"]
+sky_top_color = Color(0.194284, 0.357393, 1, 1)
+sky_horizon_color = Color(0.931476, 0.531865, 0.395325, 1)
+ground_bottom_color = Color(0, 0.395599, 0.128687, 1)
+ground_horizon_color = Color(0.505454, 0.736213, 0.218539, 1)
+
+[sub_resource type="Sky" id="Sky_xdupi"]
+sky_material = SubResource("ProceduralSkyMaterial_hweis")
 
 [sub_resource type="Environment" id="Environment_t3l70"]
+background_mode = 2
+sky = SubResource("Sky_xdupi")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_opx3o"]
 size = Vector3(1, 70.7556, 228.273)
@@ -43,3 +55,6 @@ shape = SubResource("BoxShape3D_vycqv")
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5067, 36.6079, -14.9607)
 shape = SubResource("BoxShape3D_vycqv")
+
+[node name="Node3D" parent="." instance=ExtResource("2_ecs62")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 5, 56)
