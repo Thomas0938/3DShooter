@@ -1,16 +1,17 @@
 extends CharacterBody3D
 class_name Player
 # a float has a decemal place where int does not
-var speed: int = 8
-var jump_velocity: int = 6
+var speed: int = 10
+var jump_velocity: int = 7
+var wall_jump_velocity: int = 10
 var double_jump: bool = true
-var double_jump_velocity: int = 6
+var double_jump_velocity: int = 7
 @onready var pivot: Node3D = $Node3D
 @export var sens: float = 0.1
 var jumping: bool = false
 var dash_direction
 var is_dashing: bool = false
-var dash_velocity: int = 20
+var dash_velocity: int = 30
 var dash_duration: float = 0.1
 var dash_cooldown: int = 30
 var Dash_cooldown: bool = true
@@ -23,6 +24,7 @@ var slide_duration: float = 0.1
 var slide_direction
 var has_slide: bool = false
 var velocity_slide
+var if_on_wall: bool = true
 
 
 func _physics_process(delta: float) -> void:
@@ -37,6 +39,8 @@ func _physics_process(delta: float) -> void:
 		velocity.y = double_jump_velocity
 		double_jump = false
 
+	
+
 	var input_direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var direction := (transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
 	if direction:
@@ -45,6 +49,12 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.z = move_toward(velocity.z, 0, speed)
+		
+	if is_on_wall_only() and Input.is_action_just_pressed("ui_accept"):
+		var normal: Vector3 = get_last_slide_collision().get_normal()
+		velocity.y += jump_velocity
+		#velocity.x -= -direction.x * speed
+		velocity += normal * wall_jump_velocity
 		
 	if is_dashing:
 		time += delta

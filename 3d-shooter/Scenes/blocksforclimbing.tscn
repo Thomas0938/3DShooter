@@ -1,22 +1,39 @@
-[gd_scene load_steps=4 format=3 uid="uid://dx5tt4x5d1vbf"]
+[gd_scene load_steps=7 format=3 uid="uid://dx5tt4x5d1vbf"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_7s386"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eqa7b"]
+albedo_color = Color(0, 0, 1, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_ojhe0"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nuvsb"]
+albedo_color = Color(1, 0, 0, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_u3i0u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0t7rh"]
+albedo_color = Color(0, 0, 0, 1)
 
 [node name="Node3D" type="Node3D"]
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 7, 0, 0, 0, 10, 0.0236092, -1.88905, 0.0534701)
+use_collision = true
 mesh = SubResource("BoxMesh_7s386")
+material = SubResource("StandardMaterial3D_eqa7b")
+metadata/wall = true
 
 [node name="CSGMesh3D2" type="CSGMesh3D" parent="."]
 transform = Transform3D(5, 0, 0, 0, 3, 0, 0, 0, 5, 11.796, -3.45993, 0)
+use_collision = true
 mesh = SubResource("BoxMesh_ojhe0")
+material = SubResource("StandardMaterial3D_nuvsb")
+metadata/wall = true
 
 [node name="CSGMesh3D3" type="CSGMesh3D" parent="."]
-process_physics_priority = 1
 transform = Transform3D(10, 0, 0, 0, 11, 0, 0, 0, 5, 0, 0.0382504, -13.3732)
+use_collision = true
 mesh = SubResource("BoxMesh_u3i0u")
+material = SubResource("StandardMaterial3D_0t7rh")
+metadata/wall = true
