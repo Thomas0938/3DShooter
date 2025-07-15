@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c80jndhya5mat"]
+[gd_scene load_steps=5 format=3 uid="uid://c80jndhya5mat"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_dfosr"]
+[ext_resource type="Script" path="res://Scripts/camera_3d.gd" id="2_2xo1y"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_6bmr7"]
 
@@ -22,6 +23,7 @@ spring_length = -1.0
 
 [node name="Camera3D" type="Camera3D" parent="Node3D/SpringArm3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.419911, 0.246354)
+script = ExtResource("2_2xo1y")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
@@ -33,6 +35,10 @@ one_shot = true
 [node name="Timer3" type="Timer" parent="."]
 one_shot = true
 
+[node name="Timer4" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_dash_cooldown"]
 [connection signal="timeout" from="Timer3" to="." method="_on_timer_3_timeout"]
+[connection signal="timeout" from="Timer4" to="." method="_wall_jump"]

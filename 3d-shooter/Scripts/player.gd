@@ -3,7 +3,7 @@ class_name Player
 # a float has a decemal place where int does not
 var speed: int = 10
 var jump_velocity: int = 7
-var wall_jump_velocity: int = 10
+var wall_jump_velocity: int = 7
 var double_jump: bool = true
 var double_jump_velocity: int = 7
 @onready var pivot: Node3D = $Node3D
@@ -24,7 +24,7 @@ var slide_duration: float = 0.1
 var slide_direction
 var has_slide: bool = false
 var velocity_slide
-var if_on_wall: bool = true
+var wall_jumped: bool = true
 
 
 func _physics_process(delta: float) -> void:
@@ -44,17 +44,22 @@ func _physics_process(delta: float) -> void:
 	var input_direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var direction := (transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
 	if direction:
-		velocity.x = direction.x * speed
-		velocity.z = direction.z * speed
+		velocity.x = lerp(velocity.x, direction.x * speed, 0.2)
+		velocity.z = lerp(velocity.z, direction.z * speed, 0.2)
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.z = move_toward(velocity.z, 0, speed)
 		
-	if is_on_wall_only() and Input.is_action_just_pressed("ui_accept"):
+	if is_on_wall() and wall_jumped:
+		wall_jumped = false
+		
+	if is_on_wall() and Input.is_action_just_pressed("ui_accept"):
 		var normal: Vector3 = get_last_slide_collision().get_normal()
-		velocity.y += jump_velocity
+		velocity.y = jump_velocity
+		$Timer4.start()
 		#velocity.x -= -direction.x * speed
-		velocity += normal * wall_jump_velocity
+		velocity = normal * wall_jump_velocity
+		print(normal)
 		
 	if is_dashing:
 		time += delta
@@ -94,7 +99,7 @@ func _ready() -> void:
 func _input(event) -> void:
 #	for the camera movement. This wasn't working because I was using int when i should have used a float.
 	if event is InputEventMouseMotion:
-		print("MOUSE")
+		#print("MOUSE")
 		rotate_y(deg_to_rad(-event.relative.x * sens))
 		pivot.rotate_x(deg_to_rad(-event.relative.y * sens))
 		pivot.rotation.x = clamp(pivot.rotation.x, deg_to_rad(-50), deg_to_rad(40))
@@ -115,3 +120,7 @@ func _dash_cooldown() -> void:
 func _on_timer_3_timeout() -> void:
 	is_sliding = false
 	velocity.y = 0
+
+
+func _wall_jump() -> void:
+	wall_jumped = true
