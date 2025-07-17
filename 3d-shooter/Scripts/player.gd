@@ -11,7 +11,7 @@ var double_jump_velocity: int = 7
 var jumping: bool = false
 var dash_direction
 var is_dashing: bool = false
-var dash_velocity: int = 30
+var dash_velocity: int = 25
 var dash_duration: float = 0.1
 var dash_cooldown: int = 30
 var Dash_cooldown: bool = true
@@ -24,7 +24,8 @@ var slide_duration: float = 0.1
 var slide_direction
 var has_slide: bool = false
 var velocity_slide
-var wall_jumped: bool = true
+var wall_jumped: bool = false
+var lock: bool = false
 
 
 func _physics_process(delta: float) -> void:
@@ -39,28 +40,36 @@ func _physics_process(delta: float) -> void:
 		velocity.y = double_jump_velocity
 		double_jump = false
 
-	
+	print(lock)
 
 	var input_direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var direction := (transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
-	if direction:
-		velocity.x = lerp(velocity.x, direction.x * speed, 0.2)
-		velocity.z = lerp(velocity.z, direction.z * speed, 0.2)
-	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
-		velocity.z = move_toward(velocity.z, 0, speed)
+	if not lock:
+		if direction:
+			velocity.x = lerp(velocity.x, direction.x * speed, 0.2)
+			velocity.z = lerp(velocity.z, direction.z * speed, 0.2)
+		else:
+			velocity.x = lerp(velocity.x, 0.0, 0.2)
+			velocity.z = lerp(velocity.z, 0.0, 0.2)
 		
-	if is_on_wall() and wall_jumped:
-		wall_jumped = false
+	#if is_on_wall():
+		#wall_jumped = true
+	
+	#if wall_jumped:
+		
 		
 	if is_on_wall() and Input.is_action_just_pressed("ui_accept"):
+		
 		var normal: Vector3 = get_last_slide_collision().get_normal()
-		velocity.y = jump_velocity
-		$Timer4.start()
 		#velocity.x -= -direction.x * speed
 		velocity = normal * wall_jump_velocity
+		velocity.y = jump_velocity
+		wall_jumped = true
+		lock = true
+		$Timer4.start()
 		print(normal)
-		
+	
+	
 	if is_dashing:
 		time += delta
 		velocity += dash_direction * -dash_velocity
@@ -90,7 +99,7 @@ func _physics_process(delta: float) -> void:
 		$Timer3.start(slide_duration)
 		slide_direction = transform.basis.x
 		has_slide = true
-
+		
 	move_and_slide()
 
 func _ready() -> void:
@@ -123,4 +132,5 @@ func _on_timer_3_timeout() -> void:
 
 
 func _wall_jump() -> void:
-	wall_jumped = true
+	wall_jumped = false
+	lock = false
