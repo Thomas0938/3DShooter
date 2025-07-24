@@ -72,7 +72,7 @@ func _physics_process(delta: float) -> void:
 	
 	if is_dashing:
 		time += delta
-		velocity += dash_direction * -dash_velocity
+		velocity += -direction * -dash_velocity
 		velocity.y = 0
 	
 	if is_sliding:
