@@ -26,12 +26,15 @@ var has_slide: bool = false
 var velocity_slide
 var wall_jumped: bool = false
 var lock: bool = false
+@onready var HealthBar: ProgressBar = $SubViewport/ProgressBar
+var current_health
+var max_health: int = 100
 
 
 func _physics_process(delta: float) -> void:
 	# The gravity
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		velocity += get_gravity() * delta * 1.2
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = jump_velocity
 		jumping = true
@@ -101,6 +104,8 @@ func _physics_process(delta: float) -> void:
 		has_slide = true
 		
 	move_and_slide()
+
+
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
