@@ -43,7 +43,6 @@ func _physics_process(delta: float) -> void:
 		velocity.y = double_jump_velocity
 		double_jump = false
 
-	print(lock)
 
 	var input_direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var direction := (transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
@@ -70,7 +69,6 @@ func _physics_process(delta: float) -> void:
 		wall_jumped = true
 		lock = true
 		$Timer4.start()
-		print(normal)
 	
 	
 	if is_dashing:
@@ -117,6 +115,9 @@ func _input(event) -> void:
 		rotate_y(deg_to_rad(-event.relative.x * sens))
 		pivot.rotate_x(deg_to_rad(-event.relative.y * sens))
 		pivot.rotation.x = clamp(pivot.rotation.x, deg_to_rad(-50), deg_to_rad(40))
+
+func _death() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Level.tscn")
 
 func _on_timer_timeout() -> void:
 	is_dashing = false

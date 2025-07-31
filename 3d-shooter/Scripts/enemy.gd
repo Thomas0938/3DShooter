@@ -31,3 +31,9 @@ func _physics_process(delta: float) -> void:
 	#velocity = global_position.direction_to(next_position) * EnemyMoveSpeed
 	
 	move_and_slide()
+
+
+func _playerDeath(body: Node3D) -> void:
+	if body.has_method("_death"):
+		body._death()
+		print("ded")
