@@ -3,8 +3,10 @@
 [ext_resource type="Script" path="res://Scripts/player_health.gd" id="1_652xi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34xdg"]
+bg_color = Color(0.644296, 0, 0.146436, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hpcp1"]
+bg_color = Color(0.191587, 0.404777, 0.059223, 1)
 
 [node name="ProgressBar" type="ProgressBar"]
 offset_left = 11.0

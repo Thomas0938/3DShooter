@@ -9,6 +9,7 @@
 
 [node name="CharacterBody3D" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_dfosr")
+metadata/player = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_6bmr7")

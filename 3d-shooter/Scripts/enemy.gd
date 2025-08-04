@@ -36,4 +36,6 @@ func _physics_process(delta: float) -> void:
 func _playerDeath(body: Node3D) -> void:
 	if body.has_method("_death"):
 		body._death()
-		print("ded")
+
+func _hit(body: Node3D) -> void:
+	pass

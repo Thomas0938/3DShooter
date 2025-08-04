@@ -116,8 +116,12 @@ func _input(event) -> void:
 		pivot.rotate_x(deg_to_rad(-event.relative.y * sens))
 		pivot.rotation.x = clamp(pivot.rotation.x, deg_to_rad(-50), deg_to_rad(40))
 
+func _playerHealth() -> void:
+	pass
+
 func _death() -> void:
-	get_tree().change_scene_to_file("res://Scenes/Level.tscn")
+	if max_health == 0:
+		get_tree().change_scene_to_file("res://Scenes/Level.tscn")
 
 func _on_timer_timeout() -> void:
 	is_dashing = false
