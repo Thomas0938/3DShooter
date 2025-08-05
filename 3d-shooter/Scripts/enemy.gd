@@ -36,6 +36,13 @@ func _physics_process(delta: float) -> void:
 func _playerDeath(body: Node3D) -> void:
 	if body.has_method("_death"):
 		body._death()
+		
 
 func _hit(body: Node3D) -> void:
-	pass
+	if body.has_method("_playerHealth"):
+		body._playerHealth()
+		$Timer.start()
+		print(Player.max_health)
+
+func _on_timer_timeout() -> void:
+	_hit(Player)

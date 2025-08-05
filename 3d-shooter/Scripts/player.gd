@@ -117,7 +117,11 @@ func _input(event) -> void:
 		pivot.rotation.x = clamp(pivot.rotation.x, deg_to_rad(-50), deg_to_rad(40))
 
 func _playerHealth() -> void:
-	pass
+	if max_health >= 0:
+		max_health = max_health - 10
+		HealthBar.value = max_health
+	else:
+		_death()
 
 func _death() -> void:
 	if max_health == 0:
