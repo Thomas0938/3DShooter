@@ -26,7 +26,7 @@ var has_slide: bool = false
 var velocity_slide
 var wall_jumped: bool = false
 var lock: bool = false
-@onready var HealthBar: ProgressBar = $SubViewport/ProgressBar
+@export var HealthBar: ProgressBar
 var current_health
 var max_health: int = 100
 
@@ -101,6 +101,9 @@ func _physics_process(delta: float) -> void:
 		slide_direction = transform.basis.x
 		has_slide = true
 		
+	if Input.is_action_just_pressed("shoot"):
+		pass
+
 	move_and_slide()
 
 
@@ -117,11 +120,12 @@ func _input(event) -> void:
 		pivot.rotation.x = clamp(pivot.rotation.x, deg_to_rad(-50), deg_to_rad(40))
 
 func _playerHealth() -> void:
-	if max_health >= 0:
+	if max_health > 0:
 		max_health = max_health - 10
 		HealthBar.value = max_health
 	else:
-		_death()
+		if max_health == 0:
+			_death()
 
 func _death() -> void:
 	if max_health == 0:

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c80jndhya5mat"]
+[gd_scene load_steps=6 format=3 uid="uid://c80jndhya5mat"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_dfosr"]
 [ext_resource type="Script" path="res://Scripts/camera_3d.gd" id="2_2xo1y"]
+[ext_resource type="PackedScene" uid="uid://dgyxer7chosgx" path="res://Scenes/Gun.tscn" id="3_ge2mw"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_6bmr7"]
 
@@ -25,6 +26,9 @@ spring_length = -1.0
 [node name="Camera3D" type="Camera3D" parent="Node3D/SpringArm3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.419911, 0.246354)
 script = ExtResource("2_2xo1y")
+
+[node name="Node3D" parent="Node3D/SpringArm3D/Camera3D" instance=ExtResource("3_ge2mw")]
+transform = Transform3D(-0.830843, 0, 6.60289e-08, 0, 0.492233, 0, -7.26346e-08, 0, -0.755282, 0.327473, -0.143366, -0.322542)
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

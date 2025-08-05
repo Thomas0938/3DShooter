@@ -2,6 +2,9 @@ extends CharacterBody3D
 
 @export var EnemyMoveSpeed: int = 8
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
+var enemyHealth: int = 100
+#Temporary before I add a weapon in the game
+var GunDamage 
 
 @onready var Player: CharacterBody3D = null
 
@@ -32,6 +35,9 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
+func _enemy_health() -> void:
+	if enemyHealth > 0:
+		enemyHealth = enemyHealth - GunDamage
 
 func _playerDeath(body: Node3D) -> void:
 	if body.has_method("_death"):
@@ -42,7 +48,12 @@ func _hit(body: Node3D) -> void:
 	if body.has_method("_playerHealth"):
 		body._playerHealth()
 		$Timer.start()
-		print(Player.max_health)
+
 
 func _on_timer_timeout() -> void:
 	_hit(Player)
+
+
+func _noHit(body: Node3D) -> void:
+	if body.has_method("_playerHealth"):
+		$Timer.stop()

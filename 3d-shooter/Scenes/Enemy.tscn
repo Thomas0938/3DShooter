@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ce08jq104f0hx"]
+[gd_scene load_steps=9 format=3 uid="uid://ce08jq104f0hx"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_q26hh"]
+[ext_resource type="Script" path="res://Scripts/sprite_3d.gd" id="2_7otgp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_it80k"]
 
@@ -9,6 +10,13 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ocf0q"]
 radius = 0.529196
 height = 2.11522
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h6rii"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_8oggc"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_4nsno"]
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
 script = ExtResource("1_q26hh")
@@ -28,7 +36,19 @@ shape = SubResource("CapsuleShape3D_ocf0q")
 
 [node name="Timer" type="Timer" parent="."]
 
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0405945, 1.05805, 0)
+material_override = SubResource("StandardMaterial3D_h6rii")
+modulate = Color(1, 0, 0, 1)
+texture = SubResource("CanvasTexture_8oggc")
+script = ExtResource("2_7otgp")
+
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+modulate = Color(0, 1, 0, 1)
+texture = SubResource("CanvasTexture_4nsno")
+script = ExtResource("2_7otgp")
+
 [connection signal="body_entered" from="Area3D" to="." method="_hit"]
 [connection signal="body_entered" from="Area3D" to="." method="_playerDeath"]
-[connection signal="body_exited" from="Area3D" to="." method="_hit"]
+[connection signal="body_exited" from="Area3D" to="." method="_noHit"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
