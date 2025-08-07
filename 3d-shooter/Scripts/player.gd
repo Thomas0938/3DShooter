@@ -29,6 +29,11 @@ var lock: bool = false
 @export var HealthBar: ProgressBar
 var current_health
 var max_health: int = 100
+@onready var gun_barrel: Node3D = $Node3D/SpringArm3D/Camera3D/Node3D/RayCast3D
+var bullet: PackedScene = load("res://Scenes/bullet.tscn")
+var instance
+var shooting: bool = true
+
 
 
 func _physics_process(delta: float) -> void:
@@ -100,12 +105,19 @@ func _physics_process(delta: float) -> void:
 		$Timer3.start(slide_duration)
 		slide_direction = transform.basis.x
 		has_slide = true
-		
+
 	if Input.is_action_just_pressed("shoot"):
-		pass
+		shooting = true
+		instance = bullet.instantiate()
+		instance.position = gun_barrel.global_position
+		instance.transform.basis = gun_barrel.global_transform.basis
+		get_parent().add_child(instance)
+		print(gun_barrel.global_transform.basis)
+	else:
+		shooting = false
+
 
 	move_and_slide()
-
 
 
 func _ready() -> void:
