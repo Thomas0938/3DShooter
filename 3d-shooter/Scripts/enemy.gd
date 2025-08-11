@@ -4,8 +4,9 @@ extends CharacterBody3D
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 var enemyHealth: int = 100
 #Temporary before I add a weapon in the game
-var GunDamage 
+var bulletDamage: int = 25
 
+@export var bullet: CharacterBody3D = null
 @onready var Player: CharacterBody3D = null
 
 func _ready() -> void:
@@ -37,7 +38,9 @@ func _physics_process(delta: float) -> void:
 
 func _enemy_health() -> void:
 	if enemyHealth > 0:
-		enemyHealth = enemyHealth - GunDamage
+		enemyHealth = enemyHealth - bulletDamage
+	if enemyHealth <= 0:
+		get_tree().change_scene_to_file("res://Scenes/Level.tscn")
 
 func _playerDeath(body: Node3D) -> void:
 	if body.has_method("_death"):
