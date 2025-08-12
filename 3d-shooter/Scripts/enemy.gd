@@ -12,6 +12,7 @@ var move: bool = true
 @onready var Player: CharacterBody3D = null
 
 func _ready() -> void:
+	#queue_free()
 	Player = get_tree().get_nodes_in_group("Player")[0]
 	
 func _Enemy_move() -> void:

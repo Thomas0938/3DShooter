@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1uo3ws4p5ahh"]
+
+[ext_resource type="Script" path="res://Scripts/spawner_spawner.gd" id="1_f4frs"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_brke4"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_f4frs")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_brke4")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_spawn_spawner"]

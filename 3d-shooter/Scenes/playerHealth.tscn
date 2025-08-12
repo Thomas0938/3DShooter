@@ -25,6 +25,6 @@ show_percentage = false
 script = ExtResource("1_652xi")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
-position = Vector2(530, 300)
+position = Vector2(640, 350)
 scale = Vector2(10, 10)
 mesh = SubResource("SphereMesh_sbe5i")
