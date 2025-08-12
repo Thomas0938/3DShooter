@@ -14,7 +14,7 @@ var is_dashing: bool = false
 var dash_velocity: int = 25
 var dash_duration: float = 0.1
 var dash_cooldown: int = 30
-var Dash_cooldown: bool = true
+var dash_cooldown_new: bool = true
 var time: int = 0
 var has_dashed: bool = false
 var gravity: int = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -26,7 +26,7 @@ var has_slide: bool = false
 var velocity_slide
 var wall_jumped: bool = false
 var lock: bool = false
-@export var HealthBar: ProgressBar
+@export var health_bar: ProgressBar
 var current_health
 var max_health: int = 100
 @onready var gun_barrel: Node3D = $Node3D/SpringArm3D/Camera3D/Node3D/RayCast3D
@@ -92,9 +92,9 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor() and has_dashed:
 		has_dashed = false
 #This gives the dash a cooldown and allows the player to dash
-	if Input.is_action_just_pressed("dash") and Dash_cooldown:
+	if Input.is_action_just_pressed("dash") and dash_cooldown_new:
 		is_dashing = true
-		Dash_cooldown = false
+		dash_cooldown_new = false
 		$Timer.start(dash_duration)
 		$Timer2.start()
 		dash_direction = transform.basis.z
@@ -134,7 +134,7 @@ func _input(event) -> void:
 func _playerHealth() -> void:
 	if max_health > 0:
 		max_health = max_health - 10
-		HealthBar.value = max_health
+		health_bar.value = max_health
 	else:
 		if max_health == 0:
 			_death()
@@ -149,7 +149,7 @@ func _on_timer_timeout() -> void:
 
 #To allow you to dash again after cooldown
 func _dash_cooldown() -> void:
-	Dash_cooldown = true
+	dash_cooldown_new = true
 	is_dashing = false
 	#$Timer2.start(dash_cooldown)
 	#Dash_cooldown = false

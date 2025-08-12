@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cr3tvudoshboy"]
+[gd_scene load_steps=6 format=3 uid="uid://cr3tvudoshboy"]
 
 [ext_resource type="Script" path="res://Scripts/player_health.gd" id="1_652xi"]
 
@@ -7,6 +7,12 @@ bg_color = Color(0.644296, 0, 0.146436, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hpcp1"]
 bg_color = Color(0.191587, 0.404777, 0.059223, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_01pbj"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_sbe5i"]
+material = SubResource("StandardMaterial3D_01pbj")
 
 [node name="ProgressBar" type="ProgressBar"]
 offset_left = 11.0
@@ -17,3 +23,8 @@ theme_override_styles/background = SubResource("StyleBoxFlat_34xdg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_hpcp1")
 show_percentage = false
 script = ExtResource("1_652xi")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+position = Vector2(530, 300)
+scale = Vector2(10, 10)
+mesh = SubResource("SphereMesh_sbe5i")
