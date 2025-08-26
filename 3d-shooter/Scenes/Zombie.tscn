@@ -90,8 +90,8 @@ libraries = {
 "": SubResource("AnimationLibrary_ecwsy")
 }
 
-[connection signal="body_entered" from="Area3D" to="." method="_playerDeath"]
 [connection signal="body_entered" from="Area3D" to="." method="_hit"]
+[connection signal="body_entered" from="Area3D" to="." method="_playerDeath"]
 [connection signal="body_exited" from="Area3D" to="." method="_noHit"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_dead_enemy"]

@@ -18,3 +18,4 @@ func _process(delta: float) -> void:
 func _killEnemy(body) -> void:
 	if body.has_method("_enemy_health"):
 		body._enemy_health()
+		queue_free()

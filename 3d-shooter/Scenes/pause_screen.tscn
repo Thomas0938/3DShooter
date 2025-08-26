@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=3 uid="uid://cn2vfb7obejn1"]
+
+[ext_resource type="Script" path="res://Scripts/pause_screen.gd" id="1_t2vjv"]
+
+[node name="Pause_screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t2vjv")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 217.0
+offset_top = 3.0
+offset_right = 879.0
+offset_bottom = 140.0
+theme_override_font_sizes/font_size = 100
+text = "Game Paused"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 335.0
+offset_top = 136.0
+offset_right = 730.0
+offset_bottom = 281.0
+theme_override_font_sizes/font_size = 100
+text = "Resume"
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 338.0
+offset_top = 295.0
+offset_right = 727.0
+offset_bottom = 440.0
+theme_override_font_sizes/font_size = 100
+text = "Options"
+
+[node name="Button3" type="Button" parent="."]
+layout_mode = 0
+offset_left = 365.0
+offset_top = 459.0
+offset_right = 704.0
+offset_bottom = 604.0
+theme_override_font_sizes/font_size = 100
+text = "Return"
+
+[connection signal="pressed" from="Button" to="." method="_resume"]
+[connection signal="pressed" from="Button3" to="." method="_exit"]
