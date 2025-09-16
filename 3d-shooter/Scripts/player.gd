@@ -116,9 +116,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		shooting = false
 	
-	#for loop in range(loop):
-		#print(loop)
-		#loop + 1
+	for loop in range(loop):
+		print(loop)
+		loop + 1
 
 
 	move_and_slide()

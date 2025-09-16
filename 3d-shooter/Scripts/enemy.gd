@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 @export var enemy_move_speed: int = 8
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
+@onready var raycast: RayCast3D = $RayCast3D
 var enemy_health: int = 100
 #bullet damage
 var bullet_damage: int = 25
@@ -41,8 +42,17 @@ func _physics_process(delta: float) -> void:
 			velocity += get_gravity() * delta
 		if distence_from_player <= 10:
 			_enemy_dash()
-		if is_on_wall():
+# This will point the raycast in the dirction of enemy movement
+		var raycast_velocity: Vector3 = get_velocity()
+		if velocity.length() > 0.01:
+			var raycast_direction = velocity.normalized()
+		if raycast.get_collider().has_meta("wall"):
 			_enemy_climb()
+			#raycast.look_at(global_position + raycast_direction, Vector3.FORWARD)
+			#raycast.set_rotation_degrees(Vector3(0, rad_to_deg(atan2(-direction.x, -direction.z)),0))
+#		old enemy climb
+		#if is_on_wall():
+			#_enemy_climb()
 	#navigation_agent.set_target_position(Player.global_position)
 	#if navigation_agent.is_navigation_finished():
 		#return
@@ -74,7 +84,7 @@ func _enemy_dash() -> void:
 		dash_direction_enemy = transform.basis.z
 		enemy_dash_velocity = enemy_dash_velocity
 
-
+#
 func _enemy_climb() -> void:
 	velocity.y = wall_climb_speed
 
