@@ -33,7 +33,7 @@ var max_health: int = 100
 var bullet: PackedScene = load("res://Scenes/bullet.tscn")
 var instance
 var shooting: bool = true
-
+var loop: int = 1
 
 
 func _physics_process(delta: float) -> void:
@@ -115,6 +115,10 @@ func _physics_process(delta: float) -> void:
 		print(gun_barrel.global_transform.basis)
 	else:
 		shooting = false
+	
+	#for loop in range(loop):
+		#print(loop)
+		#loop + 1
 
 
 	move_and_slide()

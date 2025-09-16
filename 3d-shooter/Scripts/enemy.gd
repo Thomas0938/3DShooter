@@ -7,6 +7,13 @@ var enemy_health: int = 100
 var bullet_damage: int = 25
 var dead: bool = false
 var move: bool = true
+var distence_from_player: int
+var enemy_dash_velocity: int = 10
+var dash_direction_enemy
+var random_number : int = randi_range(0, 10)
+var can_dash: bool = true
+var is_dashed: bool = true
+var wall_climb_speed: int = 5
 
 @export var bullet: CharacterBody3D = null
 @onready var Player: CharacterBody3D = null
@@ -32,6 +39,10 @@ func _physics_process(delta: float) -> void:
 		_Enemy_move()
 		if not is_on_floor():
 			velocity += get_gravity() * delta
+		if distence_from_player <= 10:
+			_enemy_dash()
+		if is_on_wall():
+			_enemy_climb()
 	#navigation_agent.set_target_position(Player.global_position)
 	#if navigation_agent.is_navigation_finished():
 		#return
@@ -48,6 +59,25 @@ func _enemy_health() -> void:
 		dead = true
 		move = false
 		$AnimationPlayer.play("Dead_enemy")
+
+func _random_number_generator() -> void:
+	random_number = randi_range(0, 10)
+	print(random_number)
+
+
+func _enemy_dash() -> void:
+	random_number = randi_range(0, 10)
+	print(random_number)
+	if random_number > 7:
+		can_dash = true
+		$Timer2.start()
+		dash_direction_enemy = transform.basis.z
+		enemy_dash_velocity = enemy_dash_velocity
+
+
+func _enemy_climb() -> void:
+	velocity.y = wall_climb_speed
+
 
 func _playerDeath(body: Node3D) -> void:
 	if body.has_method("_death"):
@@ -72,3 +102,7 @@ func _noHit(body: Node3D) -> void:
 func _dead_enemy(anim_name: StringName) -> void:
 	dead = true
 	queue_free()
+
+
+func _dashing_allowed() -> void:
+	can_dash = false

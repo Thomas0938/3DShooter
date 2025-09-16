@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ddommv33d6u8o"]
+[gd_scene load_steps=13 format=3 uid="uid://ddommv33d6u8o"]
 
 [ext_resource type="PackedScene" uid="uid://c80jndhya5mat" path="res://Scenes/Player.tscn" id="1_4uau3"]
 [ext_resource type="PackedScene" uid="uid://58ajtaavqh67" path="res://Scenes/MAP.tscn" id="3_anntw"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cr3tvudoshboy" path="res://Scenes/playerHealth.tscn" id="4_jmpbo"]
 [ext_resource type="PackedScene" uid="uid://8ua5fd8m2gy3" path="res://Scenes/Spawner.tscn" id="5_riks0"]
 [ext_resource type="PackedScene" uid="uid://d1uo3ws4p5ahh" path="res://Scenes/spawner_spawner.tscn" id="6_jq58w"]
+[ext_resource type="PackedScene" uid="uid://cn2vfb7obejn1" path="res://Scenes/pause_screen.tscn" id="7_s1vg5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hweis"]
 sky_top_color = Color(0.194284, 0.357393, 1, 1)
@@ -77,3 +78,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5704, -5.37645, 45.9249)
 [node name="Node3D2" parent="." node_paths=PackedStringArray("navigation_region", "player") instance=ExtResource("6_jq58w")]
 navigation_region = NodePath("../NavigationRegion3D")
 player = NodePath("../CharacterBody3D")
+
+[node name="Pause_screen" parent="." instance=ExtResource("7_s1vg5")]

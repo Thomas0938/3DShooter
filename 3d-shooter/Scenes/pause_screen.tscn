@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/pause_screen.gd" id="1_t2vjv"]
 
 [node name="Pause_screen" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,4 +49,5 @@ theme_override_font_sizes/font_size = 100
 text = "Return"
 
 [connection signal="pressed" from="Button" to="." method="_resume"]
+[connection signal="pressed" from="Button2" to="." method="_options"]
 [connection signal="pressed" from="Button3" to="." method="_exit"]

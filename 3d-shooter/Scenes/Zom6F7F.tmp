@@ -94,9 +94,6 @@ libraries = {
 wait_time = 3.0
 one_shot = true
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.00279255, 0.999996, 0, -0.999996, 0.00279255, 0, 0.450272, 0.527975)
-
 [connection signal="body_entered" from="Area3D" to="." method="_playerDeath"]
 [connection signal="body_entered" from="Area3D" to="." method="_hit"]
 [connection signal="body_exited" from="Area3D" to="." method="_noHit"]
