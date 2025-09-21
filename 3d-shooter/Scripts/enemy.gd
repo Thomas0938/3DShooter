@@ -22,6 +22,7 @@ var wall_climb_speed: int = 5
 func _ready() -> void:
 	#queue_free()
 	Player = get_tree().get_nodes_in_group("Player")[0]
+	raycast = get_node("RayCast3D")
 	
 func _Enemy_move() -> void:
 	if not dead:
@@ -46,7 +47,7 @@ func _physics_process(delta: float) -> void:
 		var raycast_velocity: Vector3 = get_velocity()
 		if velocity.length() > 0.01:
 			var raycast_direction = velocity.normalized()
-		if raycast.get_collider().has_meta("wall"):
+		if not raycast.get_collider() == null and raycast.get_collider().has_meta("wall"):
 			_enemy_climb()
 			#raycast.look_at(global_position + raycast_direction, Vector3.FORWARD)
 			#raycast.set_rotation_degrees(Vector3(0, rad_to_deg(atan2(-direction.x, -direction.z)),0))

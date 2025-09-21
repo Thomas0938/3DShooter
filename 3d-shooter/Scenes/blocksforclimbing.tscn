@@ -16,7 +16,7 @@ albedo_color = Color(1, 0, 0, 1)
 albedo_color = Color(0, 0, 0, 1)
 
 [node name="Node3D" type="Node3D"]
-metadata/wall = true
+metadata/wall = false
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 7, 0, 0, 0, 10, 0.0236092, -1.88905, 0.0534701)

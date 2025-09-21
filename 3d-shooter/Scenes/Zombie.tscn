@@ -95,7 +95,7 @@ wait_time = 3.0
 one_shot = true
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0226341, 0.450272, -0.482835)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0226341, -0.927681, -0.482835)
 target_position = Vector3(0, 0, -1)
 
 [connection signal="body_entered" from="Area3D" to="." method="_playerDeath"]
