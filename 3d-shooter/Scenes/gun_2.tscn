@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://uagxtc16l45q"]
+
+[ext_resource type="Script" path="res://Scripts/gun_2.gd" id="1_krr7v"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_dhn3y"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_7qhlm"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_du531"]
+
+[node name="Gun2" type="Node3D"]
+script = ExtResource("1_krr7v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.109199, 0, 0, 0, 0.337555, 0, 0, 0, 0.128154, 0, 0, 0)
+mesh = SubResource("BoxMesh_dhn3y")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.0994517, 0, 0, 0, 0.046945, 0, 0, 0, 0.848874, -0.00634846, 0.157458, 0.149617)
+mesh = SubResource("BoxMesh_7qhlm")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15603, 0.375702)
+target_position = Vector3(0, 0, 1)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.0603786, 0, 0, 0, 0.068048, 0, 0, 0, 0.0330473, 0.000131622, 0.086558, 0.0803749)
+mesh = SubResource("BoxMesh_du531")

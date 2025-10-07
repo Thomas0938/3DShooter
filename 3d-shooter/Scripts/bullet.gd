@@ -1,6 +1,6 @@
 extends Node3D
 
-var bullet_speed: int = 25
+var bullet_speed: int = 100
 var bullet_damage: int = 25
 @onready var mesh: MeshInstance3D = $MeshInstance3D
 @onready var ray: RayCast3D = $RayCast3D
@@ -15,7 +15,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	position -= transform.basis * Vector3(0, 0, -bullet_speed) * delta
 
+
 func _killEnemy(body) -> void:
 	if body.has_method("_enemy_health"):
 		body._enemy_health()
+		queue_free()
+
+
+func _despawn(area) -> void:
+	if area.has_method("despawn"):
 		queue_free()

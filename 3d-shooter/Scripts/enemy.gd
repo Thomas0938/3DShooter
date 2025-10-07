@@ -3,6 +3,7 @@ extends CharacterBody3D
 @export var enemy_move_speed: int = 8
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var raycast: RayCast3D = $RayCast3D
+@onready var animation: AnimationPlayer = $AnimationPlayer
 var enemy_health: int = 100
 #bullet damage
 var bullet_damage: int = 25
@@ -15,16 +16,18 @@ var random_number : int = randi_range(0, 10)
 var can_dash: bool = true
 var is_dashed: bool = true
 var wall_climb_speed: int = 5
+var enemy_jump: int = 6
 
 @export var bullet: CharacterBody3D = null
 @onready var Player: CharacterBody3D = null
+@onready var zombie: Node3D = null
 
 func _ready() -> void:
 	#queue_free()
 	Player = get_tree().get_nodes_in_group("Player")[0]
 	raycast = get_node("RayCast3D")
 	
-func _Enemy_move() -> void:
+func _enemy_move() -> void:
 	if not dead:
 		var next_position: = Player.global_position
 		navigation_agent.set_target_position(next_position)
@@ -38,7 +41,7 @@ func _physics_process(delta: float) -> void:
 		var local_destination = destination - global_position
 		var direction = local_destination.normalized()
 		velocity = direction * enemy_move_speed
-		_Enemy_move()
+		_enemy_move()
 		if not is_on_floor():
 			velocity += get_gravity() * delta
 		if distence_from_player <= 10:
@@ -69,7 +72,9 @@ func _enemy_health() -> void:
 	elif enemy_health <= 0:
 		dead = true
 		move = false
-		$AnimationPlayer.play("Dead_enemy")
+#		had tp move queue free up as before it ended on the animation
+		queue_free()
+		#$AnimationPlayer.play("Death1")
 
 func _random_number_generator() -> void:
 	random_number = randi_range(0, 10)
@@ -113,6 +118,7 @@ func _noHit(body: Node3D) -> void:
 func _dead_enemy(anim_name: StringName) -> void:
 	dead = true
 	queue_free()
+	print("ded")
 
 
 func _dashing_allowed() -> void:

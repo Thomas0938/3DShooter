@@ -1,6 +1,9 @@
 extends CharacterBody3D
 class_name Player
 # a float has a decemal place where int does not
+
+
+
 var speed: int = 10
 var jump_velocity: int = 7
 var wall_jump_velocity: int = 7
@@ -29,11 +32,17 @@ var lock: bool = false
 @export var health_bar: ProgressBar
 var current_health
 var max_health: int = 100
-@onready var gun_barrel: Node3D = $Node3D/SpringArm3D/Camera3D/Node3D/RayCast3D
+@onready var gun_barrel: Node3D = $Node3D/SpringArm3D/Camera3D/gun1/RayCast3D
+@onready var gun_barrel2: Node3D = $Node3D/SpringArm3D/Camera3D/Gun2/RayCast3D
 var bullet: PackedScene = load("res://Scenes/bullet.tscn")
 var instance
 var shooting: bool = true
 var loop: int = 1
+var looping: bool = false
+var gun2: bool = false
+var gun: bool = false
+@onready var gunn1: Node3D = $Node3D/SpringArm3D/Camera3D/gun1
+@onready var gunn2: Node3D = $Node3D/SpringArm3D/Camera3D/Gun2
 
 
 func _physics_process(delta: float) -> void:
@@ -105,20 +114,44 @@ func _physics_process(delta: float) -> void:
 		$Timer3.start(slide_duration)
 		slide_direction = transform.basis.x
 		has_slide = true
+	
+	if Input.is_action_just_pressed("gun1"):
+		gun = true
+		gun2 = false
+		gunn2.visible = false
+		gunn1.visible = true
+	
+	if Input.is_action_just_pressed("gun2"):
+		gun2 = true
+		gun = false
+		gunn2.visible = true
+		gunn1.visible = false
 
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_just_pressed("shoot") and gun:
 		shooting = true
 		instance = bullet.instantiate()
 		instance.position = gun_barrel.global_position
 		instance.transform.basis = gun_barrel.global_transform.basis
 		get_parent().add_child(instance)
-		print(gun_barrel.global_transform.basis)
+	else:
+		shooting = false
+#	this will be for my second gun when switching to it
+# Removing the just_ will allow automatic shooting.
+	if Input.is_action_pressed("shoot") and gun2:
+		shooting = true
+		instance = bullet.instantiate()
+		instance.position = gun_barrel2.global_position
+		instance.transform.basis = gun_barrel.global_transform.basis
+		get_parent().add_child(instance)
 	else:
 		shooting = false
 	
 	for loop in range(loop):
 		print(loop)
 		loop + 1
+		looping = false
+		if looping:
+			break
 
 
 	move_and_slide()
@@ -133,7 +166,8 @@ func _input(event) -> void:
 		#print("MOUSE")
 		rotate_y(deg_to_rad(-event.relative.x * sens))
 		pivot.rotate_x(deg_to_rad(-event.relative.y * sens))
-		pivot.rotation.x = clamp(pivot.rotation.x, deg_to_rad(-50), deg_to_rad(40))
+#		This will be the look up and down for y co-ords
+		pivot.rotation.x = clamp(pivot.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
 func _playerHealth() -> void:
 	if max_health > 0:
@@ -145,7 +179,7 @@ func _playerHealth() -> void:
 
 func _death() -> void:
 	if max_health == 0:
-		get_tree().change_scene_to_file("res://Scenes/Level.tscn")
+		get_tree().change_scene_to_files("res://Scenes/Level.tscn")
 
 func _on_timer_timeout() -> void:
 	is_dashing = false
