@@ -23,5 +23,5 @@ func _spawn_enemy() -> void:
 		#enemies -= 1
 #		anything with a $ should be a variable
 		$Timer.start()
-	if total_enemies == enemies_allowed:
-		queue_free()
+		if total_enemies == enemies_allowed:
+			queue_free()

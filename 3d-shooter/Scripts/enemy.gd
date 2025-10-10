@@ -3,7 +3,10 @@ extends CharacterBody3D
 @export var enemy_move_speed: int = 8
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var raycast: RayCast3D = $RayCast3D
+@onready var ray_cast_3d_2: RayCast3D = $RayCast3D2
 @onready var animation: AnimationPlayer = $AnimationPlayer
+@export var score: PackedScene 
+@onready var global = get_node("/root/Global")
 var enemy_health: int = 100
 #bullet damage
 var bullet_damage: int = 25
@@ -17,6 +20,9 @@ var can_dash: bool = true
 var is_dashed: bool = true
 var wall_climb_speed: int = 5
 var enemy_jump: int = 6
+var climbing : bool = false
+var enemy_down: int = 5
+var jumping: bool = false
 
 @export var bullet: CharacterBody3D = null
 @onready var Player: CharacterBody3D = null
@@ -37,11 +43,12 @@ func _enemy_move() -> void:
 
 func _physics_process(delta: float) -> void:
 	if not dead:
-		var destination = navigation_agent.get_next_path_position()
-		var local_destination = destination - global_position
-		var direction = local_destination.normalized()
-		velocity = direction * enemy_move_speed
-		_enemy_move()
+		if not jumping:
+			var destination = navigation_agent.get_next_path_position()
+			var local_destination = destination - global_position
+			var direction = local_destination.normalized()
+			velocity = direction * enemy_move_speed
+			_enemy_move()
 		if not is_on_floor():
 			velocity += get_gravity() * delta
 		if distence_from_player <= 10:
@@ -50,8 +57,18 @@ func _physics_process(delta: float) -> void:
 		var raycast_velocity: Vector3 = get_velocity()
 		if velocity.length() > 0.01:
 			var raycast_direction = velocity.normalized()
-		if not raycast.get_collider() == null and raycast.get_collider().has_meta("wall"):
-			_enemy_climb()
+		if raycast.is_colliding() and raycast.get_collider().has_meta("wall"):
+			climbing = true
+			#_climb()
+		#else:
+			#climbing = false
+		elif not raycast.is_colliding():
+			climbing = false
+		if not ray_cast_3d_2.is_colliding() and not climbing and is_on_floor():
+			velocity = transform.basis.z * -enemy_down
+			print(transform.basis.z * -enemy_down)
+			velocity.y = 5
+			jumping = true
 			#raycast.look_at(global_position + raycast_direction, Vector3.FORWARD)
 			#raycast.set_rotation_degrees(Vector3(0, rad_to_deg(atan2(-direction.x, -direction.z)),0))
 #		old enemy climb
@@ -64,35 +81,39 @@ func _physics_process(delta: float) -> void:
 	#var next_position: Vector3 = navigation_agent.set_target_position(1)
 	#velocity = global_position.direction_to(next_position) * EnemyMoveSpeed
 	
-		move_and_slide()
+	if climbing:
+		velocity.y = wall_climb_speed
+		#print("ye")
+	else:
+		velocity += get_gravity() * delta
+	
+	move_and_slide()
+	if is_on_floor():
+		jumping = false
+
+func _climb() -> void:
+	velocity.y = wall_climb_speed
 
 func _enemy_health() -> void:
 	if enemy_health > 0:
+		global.enemy_damaged = true
 		enemy_health = enemy_health - bullet_damage
 	elif enemy_health <= 0:
 		dead = true
 		move = false
 #		had tp move queue free up as before it ended on the animation
+		global.score = global.score + 100
+		print(global.score)
 		queue_free()
 		#$AnimationPlayer.play("Death1")
 
-func _random_number_generator() -> void:
-	random_number = randi_range(0, 10)
-	print(random_number)
-
-
 func _enemy_dash() -> void:
 	random_number = randi_range(0, 10)
-	print(random_number)
 	if random_number > 7:
 		can_dash = true
 		$Timer2.start()
 		dash_direction_enemy = transform.basis.z
 		enemy_dash_velocity = enemy_dash_velocity
-
-#
-func _enemy_climb() -> void:
-	velocity.y = wall_climb_speed
 
 
 func _playerDeath(body: Node3D) -> void:
@@ -115,11 +136,13 @@ func _noHit(body: Node3D) -> void:
 		$Timer.stop()
 
 
-func _dead_enemy(anim_name: StringName) -> void:
-	dead = true
-	queue_free()
-	print("ded")
-
-
 func _dashing_allowed() -> void:
 	can_dash = false
+
+
+func _dead_enemy(body: Node3D) -> void:
+	if body.name == "bullet":
+		#dead = true
+		global.score = global.score + 100
+		print(global.score)
+		queue_free()

@@ -23,7 +23,6 @@ func _spawn_spawner() -> void:
 	var random_pos
 	if player:
 		random_pos = NavigationServer3D.map_get_random_point(navigation_region.get_navigation_map(), 1, false)
-		print(random_pos)
 	if is_position_valid(random_pos):
 		var spawner_spawn = spawner.instantiate()
 		spawner_spawn.global_position = random_pos

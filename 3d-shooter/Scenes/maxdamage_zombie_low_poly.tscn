@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwf5wmnagglas"]
+
+[ext_resource type="PackedScene" uid="uid://dr32oflfffrss" path="res://Assets/maxdamage_zombie-low-poly.gltf" id="1_wgw02"]
+
+[node name="maxdamage_zombie-low-poly" instance=ExtResource("1_wgw02")]

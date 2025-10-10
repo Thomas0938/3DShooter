@@ -1,12 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://cr3tvudoshboy"]
+[gd_scene load_steps=7 format=3 uid="uid://cr3tvudoshboy"]
 
 [ext_resource type="Script" path="res://Scripts/player_health.gd" id="1_652xi"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34xdg"]
-bg_color = Color(0.644296, 0, 0.146436, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hpcp1"]
-bg_color = Color(0.191587, 0.404777, 0.059223, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_01pbj"]
 albedo_color = Color(1, 0, 0, 1)
@@ -14,7 +8,72 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_sbe5i"]
 material = SubResource("StandardMaterial3D_01pbj")
 
-[node name="ProgressBar" type="ProgressBar"]
+[sub_resource type="BoxMesh" id="BoxMesh_7f1mt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34xdg"]
+bg_color = Color(0.644296, 0, 0.146436, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hpcp1"]
+bg_color = Color(0.191587, 0.404777, 0.059223, 1)
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_652xi")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+position = Vector2(643, 354)
+scale = Vector2(10, 10)
+mesh = SubResource("SphereMesh_sbe5i")
+
+[node name="Marker1" type="MeshInstance2D" parent="."]
+visible = false
+modulate = Color(1, 0, 0, 1)
+position = Vector2(658.369, 338.369)
+rotation = 0.785398
+scale = Vector2(3.75003, 22.75)
+mesh = SubResource("BoxMesh_7f1mt")
+
+[node name="marker2" type="MeshInstance2D" parent="."]
+visible = false
+modulate = Color(1, 0, 0, 1)
+position = Vector2(659.369, 371.369)
+rotation = 2.35619
+scale = Vector2(3.75003, 22.75)
+mesh = SubResource("BoxMesh_7f1mt")
+
+[node name="marker3" type="MeshInstance2D" parent="."]
+visible = false
+modulate = Color(1, 0, 0, 1)
+position = Vector2(627.369, 371.369)
+rotation = -2.35619
+scale = Vector2(3.75003, 22.75)
+mesh = SubResource("BoxMesh_7f1mt")
+
+[node name="marker4" type="MeshInstance2D" parent="."]
+visible = false
+modulate = Color(1, 0, 0, 1)
+position = Vector2(628.369, 337.369)
+rotation = -0.785398
+scale = Vector2(3.75003, 22.75)
+mesh = SubResource("BoxMesh_7f1mt")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="score" type="Label" parent="CanvasLayer"]
+offset_left = 61.0
+offset_top = 69.0
+offset_right = 208.0
+offset_bottom = 138.0
+theme_override_font_sizes/font_size = 50
+text = "Score:
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 0
 offset_left = 11.0
 offset_top = 5.0
 offset_right = 210.0
@@ -22,9 +81,3 @@ offset_bottom = 32.0
 theme_override_styles/background = SubResource("StyleBoxFlat_34xdg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_hpcp1")
 show_percentage = false
-script = ExtResource("1_652xi")
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
-position = Vector2(640, 350)
-scale = Vector2(10, 10)
-mesh = SubResource("SphereMesh_sbe5i")

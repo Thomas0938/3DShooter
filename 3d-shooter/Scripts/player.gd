@@ -2,8 +2,8 @@ extends CharacterBody3D
 class_name Player
 # a float has a decemal place where int does not
 
-
-
+var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+@onready var global = get_node("/root/Global")
 var speed: int = 10
 var jump_velocity: int = 7
 var wall_jump_velocity: int = 7
@@ -29,13 +29,15 @@ var has_slide: bool = false
 var velocity_slide
 var wall_jumped: bool = false
 var lock: bool = false
-@export var health_bar: ProgressBar
+var allowed: bool = false
 var current_health
 var max_health: int = 100
 @onready var gun_barrel: Node3D = $Node3D/SpringArm3D/Camera3D/gun1/RayCast3D
 @onready var gun_barrel2: Node3D = $Node3D/SpringArm3D/Camera3D/Gun2/RayCast3D
 var bullet: PackedScene = load("res://Scenes/bullet.tscn")
+var bullet2: PackedScene = load("res://Scenes/bullet2.tscn")
 var instance
+var instances
 var shooting: bool = true
 var loop: int = 1
 var looping: bool = false
@@ -43,6 +45,7 @@ var gun2: bool = false
 var gun: bool = false
 @onready var gunn1: Node3D = $Node3D/SpringArm3D/Camera3D/gun1
 @onready var gunn2: Node3D = $Node3D/SpringArm3D/Camera3D/Gun2
+var can_shoot: bool = true
 
 
 func _physics_process(delta: float) -> void:
@@ -124,6 +127,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("gun2"):
 		gun2 = true
 		gun = false
+		can_shoot = true
 		gunn2.visible = true
 		gunn1.visible = false
 
@@ -133,26 +137,27 @@ func _physics_process(delta: float) -> void:
 		instance.position = gun_barrel.global_position
 		instance.transform.basis = gun_barrel.global_transform.basis
 		get_parent().add_child(instance)
+		
 	else:
 		shooting = false
 #	this will be for my second gun when switching to it
 # Removing the just_ will allow automatic shooting.
-	if Input.is_action_pressed("shoot") and gun2:
+	if Input.is_action_pressed("shoot") and gun2 and can_shoot:
 		shooting = true
-		instance = bullet.instantiate()
-		instance.position = gun_barrel2.global_position
-		instance.transform.basis = gun_barrel.global_transform.basis
-		get_parent().add_child(instance)
+		instances = bullet2.instantiate()
+		instances.position = gun_barrel2.global_position
+		instances.transform.basis = gun_barrel2.global_transform.basis
+		get_parent().add_child(instances)
+		can_shoot = false
+		$Timer5.start()
 	else:
 		shooting = false
-	
-	for loop in range(loop):
-		print(loop)
-		loop + 1
-		looping = false
-		if looping:
-			break
 
+	if allowed:
+		for loop in numbers:
+			print(loop)
+			allowed = false
+			break
 
 	move_and_slide()
 
@@ -172,14 +177,15 @@ func _input(event) -> void:
 func _playerHealth() -> void:
 	if max_health > 0:
 		max_health = max_health - 10
-		health_bar.value = max_health
 	else:
 		if max_health == 0:
+			global.score = 0
 			_death()
 
 func _death() -> void:
 	if max_health == 0:
-		get_tree().change_scene_to_files("res://Scenes/Level.tscn")
+		global.score = 0
+		get_tree().change_scene_to_file("res://Scenes/Level.tscn")
 
 func _on_timer_timeout() -> void:
 	is_dashing = false
@@ -202,3 +208,7 @@ func _on_timer_3_timeout() -> void:
 func _wall_jump() -> void:
 	wall_jumped = false
 	lock = false
+
+# To control the AK rate of fire
+func _rate_of_fire() -> void:
+	can_shoot = true

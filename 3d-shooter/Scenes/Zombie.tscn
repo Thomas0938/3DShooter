@@ -23,7 +23,7 @@ albedo_color = Color(1, 0, 0, 1)
 script = ExtResource("1_q26hh")
 
 [node name="maxdamage_zombie-low-poly" parent="." instance=ExtResource("2_3hbn3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0971526, -0.555179, -0.0526528)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.0971526, -0.555179, -0.0526528)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.075366, 0.173459, 0)
@@ -32,7 +32,7 @@ shape = SubResource("CapsuleShape3D_it80k")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="Area3D" type="Area3D" parent="." groups=["death"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.110466, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.111509, -0.0021475, 0.00223565)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.249876, 0)
@@ -58,9 +58,14 @@ wait_time = 3.0
 one_shot = true
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.087832, -0.927681, -0.482835)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.087832, -0.54409, -0.211149)
 target_position = Vector3(0, 0, -1)
 
+[node name="RayCast3D2" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.73287, 0.206159, 0, -0.73287, 0.206159, 0.087832, -0.54409, -0.663545)
+target_position = Vector3(0, 0, -1)
+
+[connection signal="body_entered" from="Area3D" to="." method="_dead_enemy"]
 [connection signal="body_entered" from="Area3D" to="." method="_hit"]
 [connection signal="body_entered" from="Area3D" to="." method="_playerDeath"]
 [connection signal="body_exited" from="Area3D" to="." method="_noHit"]

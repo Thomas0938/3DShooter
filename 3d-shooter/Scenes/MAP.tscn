@@ -32,35 +32,31 @@ metadata/despawn = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88.0984, 28.0034, 59.5755)
 shape = SubResource("BoxShape3D_krfbc")
-metadata/despawn = true
+metadata/despawn = false
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.1253, 29.5089, 73.5783)
 shape = SubResource("BoxShape3D_krfbc")
-metadata/despawn = true
+metadata/despawn = false
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="Area3D/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.13108, 36.2967, 157.977)
 shape = SubResource("BoxShape3D_q4te2")
-metadata/despawn = true
+metadata/despawn = false
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="Area3D/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5067, 36.6079, -14.9607)
 shape = SubResource("BoxShape3D_q4te2")
-metadata/despawn = true
+metadata/despawn = false
 
 [node name="Node3D" parent="Area3D" instance=ExtResource("1_dn43g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 5, 56)
-metadata/despawn = true
 
 [node name="Node3D2" parent="Area3D" instance=ExtResource("1_dn43g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.0601, 5.26314, 78.7298)
-metadata/despawn = true
 
 [node name="Node3D3" parent="Area3D" instance=ExtResource("1_dn43g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.5347, 5.45494, 119.949)
-metadata/despawn = true
 
 [node name="Node3D4" parent="Area3D" instance=ExtResource("1_dn43g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.9621, 5.42301, 30.6873)
-metadata/despawn = true
