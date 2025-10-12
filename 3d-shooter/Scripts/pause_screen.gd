@@ -38,4 +38,4 @@ func _exit() -> void:
 
 func _options() -> void:
 	get_tree().paused = false
-#	change this to the options file when created
+	get_tree().change_scene_to_file("res://Scenes/Credits.tscn")
