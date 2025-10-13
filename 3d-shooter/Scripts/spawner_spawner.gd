@@ -16,6 +16,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
+# This will spawn a spawner in a random location each time using the nav region
 func _spawn_spawner() -> void:
 	var nav_map = navigation_region.navigation_mesh
 	var attempts = 0 
@@ -30,6 +31,7 @@ func _spawn_spawner() -> void:
 		$Timer.start()
 
 
+# This will allow the spawner to check if where it is spawning is allowed
 func is_position_valid(position) -> bool:
 	if position:
 		return true

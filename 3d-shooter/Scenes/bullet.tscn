@@ -28,4 +28,4 @@ transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_vgsnq")
 
 [connection signal="area_entered" from="Area3D" to="." method="_despawn"]
-[connection signal="body_entered" from="Area3D" to="." method="_killEnemy"]
+[connection signal="body_entered" from="Area3D" to="." method="_kill_enemy"]

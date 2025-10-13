@@ -1,6 +1,6 @@
 extends Control
-@export var Player: CharacterBody3D
-@export var Zombie: CharacterBody3D
+@export var player: CharacterBody3D
+@export var zombie: CharacterBody3D
 @onready var marker1: MeshInstance2D = $Marker1
 @onready var marker2: MeshInstance2D = $marker2
 @onready var marker3: MeshInstance2D = $marker3
@@ -10,13 +10,16 @@ extends Control
 @onready var score: Label = $CanvasLayer/score
 
 # Called when the node enters the scene tree for the first time.
+# allows _health and _enemy to run
 func _ready() -> void:
-	_playerHealth()
+	_player_health()
 	_enemy_health()
 
-func _playerHealth() -> void:
-	progress_bar.value = Player.max_health
+# This shows the player health bar in game for feedback
+func _player_health() -> void:
+	progress_bar.value = player.max_health
 
+# The hit markers will flash when the bullet hits the enemy
 func _enemy_health() -> void:
 	if global.enemy_damaged:
 		marker1.visible = true
@@ -30,12 +33,14 @@ func _enemy_health() -> void:
 		marker4.visible = false
 	
 
+# does nothing
 func enemy_hit() -> void:
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+# This also does the marker hits.
 func _process(delta: float) -> void:
-	progress_bar.value = Player.max_health
+	progress_bar.value = player.max_health
 	score.text = ("Score: " + str(global.score))
 	#print(global.score)
 	

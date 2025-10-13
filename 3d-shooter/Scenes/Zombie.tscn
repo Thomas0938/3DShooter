@@ -65,9 +65,9 @@ target_position = Vector3(0, 0, -1)
 transform = Transform3D(1, 0, 0, 0, 0.73287, 0.206159, 0, -0.73287, 0.206159, 0.087832, -0.54409, -0.663545)
 target_position = Vector3(0, 0, -1)
 
-[connection signal="body_entered" from="Area3D" to="." method="_dead_enemy"]
+[connection signal="body_entered" from="Area3D" to="." method="_player_death"]
 [connection signal="body_entered" from="Area3D" to="." method="_hit"]
-[connection signal="body_entered" from="Area3D" to="." method="_playerDeath"]
-[connection signal="body_exited" from="Area3D" to="." method="_noHit"]
+[connection signal="body_entered" from="Area3D" to="." method="_dead_enemy"]
+[connection signal="body_exited" from="Area3D" to="." method="_no_hit"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_dashing_allowed"]

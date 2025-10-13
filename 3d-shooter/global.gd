@@ -1,4 +1,5 @@
 extends Node
+# Variables
 var enemy_damaged: bool = false
 var score : int = 0
 
