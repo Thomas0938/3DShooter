@@ -42,9 +42,9 @@ func _ready() -> void:
 # This function allow the enemy to move by using the navugation region
 func _enemy_move() -> void:
 	if not dead:
-		var next_position: = Player.global_position
+		var next_position: = player.global_position
 		navigation_agent.set_target_position(next_position)
-		look_at(Player.position)
+		look_at(player.position)
 		rotation.x = clamp(rotation.x, 0, 0)
 		rotation.z = clamp(rotation.z, 0, 0)
 
@@ -115,6 +115,7 @@ func _enemy_health() -> void:
 		move = false
 #		had tp move queue free up as before it ended on the animation
 		global.score = global.score + increase_in_score
+		global.add_score()
 		print(global.score)
 		queue_free()
 		#$AnimationPlayer.play("Death1")
@@ -137,7 +138,7 @@ func _player_death(body: Node3D) -> void:
 # This will allow the enemy to hit the player
 func _hit(body: Node3D) -> void:
 	if body.has_method("_player_health"):
-		body._playerHealth()
+		body._player_health()
 		$Timer.start()
 
 # When the timer times out it will run _hit

@@ -28,7 +28,7 @@ var slide_velocity: int = 8
 var max_health: int = 100
 var loop: int = 1
 var slide_duration: float = 0.1
-var one_two: float = 1.2
+var grav: float = 1.2
 var damage: int = 10
 # bools
 var double_jump: bool = true
@@ -59,7 +59,7 @@ var instances
 func _physics_process(delta: float) -> void:
 	# The gravity
 	if not is_on_floor():
-		velocity += get_gravity() * delta * one_two
+		velocity += get_gravity() * delta * grav
 # allows the player to jump
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = jump_velocity

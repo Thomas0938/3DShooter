@@ -72,12 +72,20 @@ text = "Score:
 "
 metadata/_edit_use_anchors_ = true
 
+[node name="high_score" type="Label" parent="CanvasLayer"]
+offset_left = 7.0
+offset_top = 121.0
+offset_right = 275.0
+offset_bottom = 190.0
+theme_override_font_sizes/font_size = 50
+text = "High score:"
+
 [node name="ProgressBar" type="ProgressBar" parent="."]
 layout_mode = 0
 offset_left = 11.0
 offset_top = 5.0
 offset_right = 210.0
-offset_bottom = 32.0
+offset_bottom = 34.0
 theme_override_styles/background = SubResource("StyleBoxFlat_34xdg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_hpcp1")
 show_percentage = false
