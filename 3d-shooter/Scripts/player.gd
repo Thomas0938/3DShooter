@@ -146,7 +146,8 @@ func _physics_process(delta: float) -> void:
 		instance.position = gun_barrel.global_position
 		instance.transform.basis = gun_barrel.global_transform.basis
 		get_parent().add_child(instance)
-		
+		can_shoot = false
+		$Timer6.start()
 	else:
 		shooting = false
 #	this will be for my second gun when switching to it
@@ -189,6 +190,7 @@ func _input(event) -> void:
 func _player_health() -> void:
 	if max_health > 0:
 		max_health = max_health - damage
+		print(max_health)
 	else:
 		if max_health == 0:
 			global.score = 0
@@ -196,9 +198,9 @@ func _player_health() -> void:
 
 # This will reload the scene when the player dies
 func _death() -> void:
-	if max_health == 0:
+	if max_health <= 0:
 		global.score = 0
-		get_tree().change_scene_to_file("res://Scenes/Level.tscn")
+		get_tree().reload_current_scene()
 
 # This will stop the player from dashing when the timer stops
 func _on_timer_timeout() -> void:
@@ -226,4 +228,8 @@ func _wall_jump() -> void:
 
 # To control the AK rate of fire
 func _rate_of_fire() -> void:
+	can_shoot = true
+
+# to control gun 1 fire rate
+func _gun_1_fire_rate() -> void:
 	can_shoot = true

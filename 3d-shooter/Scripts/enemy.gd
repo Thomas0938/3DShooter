@@ -115,7 +115,7 @@ func _enemy_health() -> void:
 		move = false
 #		had tp move queue free up as before it ended on the animation
 		global.score = global.score + increase_in_score
-		global.add_score()
+		global.add_score() 
 		print(global.score)
 		queue_free()
 		#$AnimationPlayer.play("Death1")

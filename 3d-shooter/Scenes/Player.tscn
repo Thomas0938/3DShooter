@@ -53,8 +53,11 @@ one_shot = true
 wait_time = 0.202
 one_shot = true
 
+[node name="Timer6" type="Timer" parent="."]
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_dash_cooldown"]
 [connection signal="timeout" from="Timer3" to="." method="_on_timer_3_timeout"]
 [connection signal="timeout" from="Timer4" to="." method="_wall_jump"]
 [connection signal="timeout" from="Timer5" to="." method="_rate_of_fire"]
+[connection signal="timeout" from="Timer6" to="." method="_gun_1_fire_rate"]
