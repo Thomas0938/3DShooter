@@ -29,5 +29,14 @@ offset_bottom = 524.0
 theme_override_font_sizes/font_size = 100
 text = "Exit"
 
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 257.0
+offset_top = 43.0
+offset_right = 1058.0
+offset_bottom = 180.0
+theme_override_font_sizes/font_size = 100
+text = "Apocalypse 2025"
+
 [connection signal="pressed" from="Button" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_exit_button_2_pressed"]

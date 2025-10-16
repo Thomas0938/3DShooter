@@ -130,6 +130,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("gun1"):
 		gun = true
 		gun_2 = false
+		can_shoot = true
 		gunn_2.visible = false
 		gunn_1.visible = true
 # This allows the player to draw gun 2

@@ -10,9 +10,20 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_top = 109.0
+offset_right = 321.0
+offset_bottom = 184.0
 text = "Credits:
 Enemy model made by maximumdamage
 gun models made by Styloo
+"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_right = 308.0
+offset_bottom = 101.0
+text = "Tips:
+Press 1 and 2 to chose weapons
+Remember each enemy provides scores
+shift to dash
 "
