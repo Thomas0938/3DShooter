@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://cbbgn5coi4faf"]
+[gd_scene load_steps=2 format=3 uid="uid://cbbgn5coi4faf"]
+
+[ext_resource type="Script" path="res://Scripts/credits.gd" id="1_hhp2m"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_hhp2m")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
@@ -27,3 +30,13 @@ Press 1 and 2 to chose weapons
 Remember each enemy provides scores
 shift to dash
 "
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 214.0
+offset_right = 65.0
+offset_bottom = 245.0
+text = "Return"
+
+[connection signal="pressed" from="Button" to="." method="_return"]
