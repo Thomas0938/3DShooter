@@ -13,30 +13,40 @@ script = ExtResource("1_o38o7")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 544.0
-offset_top = 203.0
-offset_right = 765.0
-offset_bottom = 348.0
+offset_left = 546.0
+offset_top = 165.0
+offset_right = 767.0
+offset_bottom = 310.0
 theme_override_font_sizes/font_size = 100
 text = "Play"
 
 [node name="Button2" type="Button" parent="."]
 layout_mode = 0
-offset_left = 563.0
-offset_top = 379.0
-offset_right = 749.0
-offset_bottom = 524.0
+offset_left = 561.0
+offset_top = 329.0
+offset_right = 747.0
+offset_bottom = 474.0
 theme_override_font_sizes/font_size = 100
 text = "Exit"
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 257.0
-offset_top = 43.0
-offset_right = 1058.0
-offset_bottom = 180.0
+offset_left = 252.0
+offset_top = 10.0
+offset_right = 1053.0
+offset_bottom = 147.0
 theme_override_font_sizes/font_size = 100
 text = "Apocalypse 2025"
 
+[node name="Button3" type="Button" parent="."]
+layout_mode = 0
+offset_left = 468.0
+offset_top = 487.0
+offset_right = 853.0
+offset_bottom = 632.0
+theme_override_font_sizes/font_size = 100
+text = "Tutorial"
+
 [connection signal="pressed" from="Button" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_exit_button_2_pressed"]
+[connection signal="pressed" from="Button3" to="." method="_tutorial"]
