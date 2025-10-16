@@ -3,10 +3,7 @@ extends Node3D
 @onready var mesh: MeshInstance3D = $MeshInstance3D
 @onready var ray: RayCast3D = $RayCast3D
 @export var zombie: CharacterBody3D = null
-@onready var marker1: ProgressBar = $Marker1
-@onready var marker2: ProgressBar = $marker2
-@onready var marker3: ProgressBar = $marker3
-@onready var marker4: ProgressBar = $marker4
+
 
 var bullet_speed: int = 25
 var bullet_damage: int = 25
